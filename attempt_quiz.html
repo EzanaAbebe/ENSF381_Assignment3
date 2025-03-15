@@ -119,17 +119,24 @@ could work
                 else if(!(called2)){
                     alert("Question submitted")
                     called2 = true;
-                }
-                if(option3.checked && !(called2)){
+
+                    if(option3.checked){
                     score = score + 25;
+                    }
+                    if(option4.checked){
+                        score = score + 25;
+                    }   
                 }
-                if(option4.checked && !(called2)){
-                    score = score + 25;
-                }   
             }
 
             function submission(){
-                alert(`Your final score was ` + score + `/100`)
+                if(called1 && called2){
+                    alert(`Your final score was ` + score + `/100`)
+                }
+                else{
+                    alert('Failed to submit one or more questions')
+                }
+                
 
             }
             
