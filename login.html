@@ -36,18 +36,10 @@
             
         }
 
-        function displayMessage(message, type) {
+        function displayMessage(message) {
             var messageBox = document.getElementById("messageBox");
             messageBox.innerHTML = message;
-            if (type === 'success') {
-                messageBox.className = 'message-box message-success';
-                messageBox.style.borderColor = 'black';
-            } 
-            else {
-                messageBox.className = 'message-box message-error';
-                messageBox.style.borderColor = 'black';
-            }
-            messageBox.style.display = 'block';
+            messageBox.style.borderColor = 'black';
         }
 
 

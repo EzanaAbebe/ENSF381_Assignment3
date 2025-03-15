@@ -33,6 +33,18 @@ could work
             
         }, 1000);
 
+        function displayMessage1(message) {
+            var messageBox = document.getElementById("messageBox1");
+            messageBox.innerHTML = message;
+            messageBox.style.borderColor = 'black';
+        }
+
+        function displayMessage2(message) {
+            var messageBox = document.getElementById("messageBox2");
+            messageBox.innerHTML = message;
+            messageBox.style.borderColor = 'black';
+        }
+
     </script>
     <header>
         <img src="logo.jpg" alt="LMS Logo" style="width: 100px; height: 100px;">
@@ -64,6 +76,8 @@ could work
             <label for="q1b">Home Tool Markup Language</label><br>
         </div>
         <br>
+        <div id="messageBox1" class="message-box" style="border: 1px solid white; padding:10px"></div>
+        <br>
         <button class="ans" onclick="checkInputs1()">Submit Answer</button>
         
         <h3>Question 2</h3>
@@ -75,12 +89,14 @@ could work
             <label for="q2b">&lt;span&gt;</label><br>
         </div>
         <br>
+        <div id="messageBox2" class="message-box" style="border: 1px solid white; padding:10px"></div>
+        <br>
         <button class="ans" onclick="checkInputs2()">Submit Answer</button>
 
 
         
         <br><br>
-        <a href="leaderboard.html">
+        <a>
             <button class="FinQz" onclick="submission()">Finish Quiz</button>
         </a>
         <script>
@@ -94,16 +110,16 @@ could work
             
             function checkInputs1(){
                 if(called1){
-                    alert("Already submitted question")
+                    displayMessage1("Already submitted question");
                 }
                 else if(option1.checked){
-                    alert("Question submitted")
+                    displayMessage1("Question submitted");
                     score = score + 50;
                     called1 = true;
                 }
                 
                 else if(option2.checked){
-                    alert("Question submitted")
+                    displayMessage1("Question submitted");
                     called1 = true;
                 }
 
@@ -114,10 +130,10 @@ could work
 
             function checkInputs2() {
                 if (called2) {
-                    alert("Already submitted question");
+                    displayMessage2("Already submitted question");
                 }
                 else if(!(called2)){
-                    alert("Question submitted")
+                    displayMessage2("Question submitted");
                     called2 = true;
 
                     if(option3.checked){
@@ -131,10 +147,11 @@ could work
 
             function submission(){
                 if(called1 && called2){
-                    alert(`Your final score was ` + score + `/100`)
+                    alert(`Your final score was ` + score + `/100`);
+                    window.location.href = 'leaderboard.html';
                 }
                 else{
-                    alert('Failed to submit one or more questions')
+                    alert('Failed to submit one or more questions');
                 }
                 
 
