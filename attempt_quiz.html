@@ -10,6 +10,7 @@
     <script>
         var counterTime = 600;
         var timePassed = 0;
+        var score = 0;
 
         var x = setInterval(() => {
 
@@ -25,7 +26,6 @@
 
             
         }, 1000);
-
 
     </script>
     <header>
@@ -58,23 +58,76 @@
             <label for="q1b">Home Tool Markup Language</label><br>
         </div>
         <br>
-        <button class="ans">Submit Answer</button>
+        <button class="ans" onclick="checkInputs1()">Submit Answer</button>
         
         <h3>Question 2</h3>
         <p>Which of the following are HTML elements? (Select all that apply)</p>
         <div class="Qs">
-        <input type="checkbox" id="q2a" name="q2" value="<div>">
-        <label for="q2a">&lt;div&gt;</label><br>
-        <input type="checkbox" id="q2b" name="q2" value="<span>">
-        <label for="q2b">&lt;span&gt;</label><br>
+            <input type="checkbox" id="q2a" name="q2" value="<div>">
+            <label for="q2a">&lt;div&gt;</label><br>
+            <input type="checkbox" id="q2b" name="q2" value="<span>">
+            <label for="q2b">&lt;span&gt;</label><br>
         </div>
         <br>
-        <button class="ans">Submit Answer</button>
+        <button class="ans" onclick="checkInputs2()">Submit Answer</button>
+
+
         
         <br><br>
         <a href="leaderboard.html">
-            <button class="FinQz">Finish Quiz</button>
+            <button class="FinQz" onclick="submission()">Finish Quiz</button>
         </a>
+        <script>
+
+            var option1 = document.getElementById("q1a");
+            var option2 = document.getElementById("q1b");
+            var option3 = document.getElementById("q2a");
+            var option4 = document.getElementById("q2b");
+            var called1 = false;
+            var called2 = false;                          
+            
+            function checkInputs1(){
+                if(called1){
+                    alert("Already submitted question")
+                }
+                else if(option1.checked){
+                    alert("Question submitted")
+                    score = score + 50;
+                    called1 = true;
+                }
+                
+                else if(option2.checked){
+                    alert("Question submitted")
+                    called1 = true;
+                }
+
+                else if(!(option1.checked) && !(option2.checked)){
+                    alert("Please choose an option for question 1");
+                }
+            }
+
+            function checkInputs2() {
+                if (called2) {
+                    alert("Already submitted question");
+                }
+                else if(!(called2)){
+                    alert("Question submitted")
+                    called2 = true;
+                }
+                if(option3.checked && !(called2)){
+                    score = score + 25;
+                }
+                if(option4.checked && !(called2)){
+                    score = score + 25;
+                }   
+            }
+
+            function submission(){
+                alert(`Your final score was ` + score + `/100`)
+
+            }
+            
+        </script>
     </main>
     <footer>
         <p>&copy; 2025 LMS. All rights reserved.</p>
