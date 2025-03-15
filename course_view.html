@@ -7,6 +7,40 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <script>
+        function courseAction(courseElement, action) {
+            const enrolledTable = document.getElementById("enrolled");
+            const pendingTable = document.getElementById("pending");
+
+            if (action === 'accept') {
+                enrolledTable.appendChild(courseElement);  // Move the course to "Enrolled"
+            } else if (action === 'decline') {
+                // Remove the course element from the "Pending" section
+                pendingTable.removeChild(courseElement.parentNode);
+            }
+        }
+
+        function eventListeners() {
+            const pending = document.getElementsByClassName("cv")[1].getElementsByTagName('td'); // Access pending courses
+            
+            for (let i = 0; i < pending.length; i++) {
+                const courseDiv = pending[i].getElementsByTagName('div')[0];
+                const accept = pending[i].getElementsByClassName('accept')[0];
+                const decline = pending[i].getElementsByClassName('decline')[0];
+
+                // Add event listener for Accept button
+                accept.onclick = function() {
+                    courseAction(courseDiv, 'accept');
+                };
+
+                // Add event listener for Decline button
+                decline.onclick = function() {
+                    courseAction(courseDiv, 'decline');
+                };
+            }
+        }
+        window.onload = eventListeners;
+    </script>
     <header>
         <img src="logo.jpg" alt="LMS Logo" style="width: 100px; height: 100px;">
         <h1>LMS - Learning Management System</h1>
@@ -31,7 +65,7 @@
             <!-- Display Course 1, 2, and 3 in the same line -->
             <h2>Enrolled Courses</h2>
             <hr>
-            <table class="cv">
+            <table class="cv" id="enrolled">
 				<tr>
 					<td>
 						<div>
@@ -89,7 +123,7 @@
             <!-- Display Course 1, 2, and 3 in the same line -->
             <h2>Pending Invitations</h2>
             <hr>
-            <table class="cv">
+            <table class="cv" id="pending">
 				<tr>
 					<td>
                         <div>
