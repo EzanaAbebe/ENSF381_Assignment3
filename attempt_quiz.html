@@ -7,6 +7,27 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <script>
+        var counterTime = 600;
+        var timePassed = 0;
+
+        var x = setInterval(() => {
+
+            timePassed = timePassed + 1;
+            let min = Math.floor((counterTime - timePassed)/60);
+            let seconds = (counterTime - timePassed)%60;
+            document.getElementById("demo").innerHTML = (min<10 ? "0" + min : min) + ":" + (seconds<10 ? "0" + seconds : seconds) + "s";
+
+            if((counterTime - timePassed) == 0){
+                window.location.href = 'leaderboard.html';
+
+            }
+
+            
+        }, 1000);
+
+
+    </script>
     <header>
         <img src="logo.jpg" alt="LMS Logo" style="width: 100px; height: 100px;">
         <h1>LMS - Learning Management System</h1>
@@ -22,6 +43,7 @@
         <div class="quizdetails">
             <h2>Course Name: Web Development</h2>
             <h2>Course Code: WD381</h2>
+            <h2 id="demo"></h2>
             <p>Topic: HTML Basics</p>
             <p>Deadline: 11:59 PM, February 10, 2025</p>
             <p>Attempts Allowed: 1</p>
