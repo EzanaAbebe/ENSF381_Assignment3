@@ -11,29 +11,44 @@
         function courseAction(courseElement, action) {
             const enrolledTable = document.getElementById("enrolled");
             const pendingTable = document.getElementById("pending");
-
+            pendingTable.getElementsByTagName('img').src = "course1.jpg";
+            const buttons = document.getElementsByTagName("button");
+            const accept = buttons[0];
+            const decline = buttons[1];
+            courseElement.removeChild(accept);
+            courseElement.removeChild(decline);
             if (action === 'accept') {
-                enrolledTable.appendChild(courseElement);  // Move the course to "Enrolled"
+                const rows = enrolledTable.getElementsByTagName('tr');
+                let lastRow = rows[rows.length - 1];
+                if (lastRow.getElementsByTagName('td').length >= 3) {
+                    lastRow = document.createElement('tr');
+                    enrolledTable.appendChild(lastRow);
+                }
+                courseElement.parentNode.parentNode.removeChild(courseElement.parentNode);
+                const newTd = document.createElement('td');
+                newTd.appendChild(courseElement);
+                lastRow.appendChild(newTd);
+                newTd.getElementsByTagName("img")[0].src = "course1.jpg";
+                const link = document.createElement('a');
+                link.href = "attempt_quiz.html";
+                link.innerHTML = "Attempt Quiz";
+                newTd.appendChild(link)
             } else if (action === 'decline') {
-                // Remove the course element from the "Pending" section
-                pendingTable.removeChild(courseElement.parentNode);
+                courseElement.parentNode.parentNode.removeChild(courseElement.parentNode);
             }
         }
 
         function eventListeners() {
-            const pending = document.getElementsByClassName("cv")[1].getElementsByTagName('td'); // Access pending courses
-            
+            const pending = document.getElementsByClassName("cv")[1].getElementsByTagName('td');
             for (let i = 0; i < pending.length; i++) {
                 const courseDiv = pending[i].getElementsByTagName('div')[0];
                 const accept = pending[i].getElementsByClassName('accept')[0];
                 const decline = pending[i].getElementsByClassName('decline')[0];
 
-                // Add event listener for Accept button
                 accept.onclick = function() {
                     courseAction(courseDiv, 'accept');
                 };
 
-                // Add event listener for Decline button
                 decline.onclick = function() {
                     courseAction(courseDiv, 'decline');
                 };
