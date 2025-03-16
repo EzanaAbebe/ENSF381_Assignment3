@@ -12,11 +12,6 @@
             const enrolledTable = document.getElementById("enrolled");
             const pendingTable = document.getElementById("pending");
             pendingTable.getElementsByTagName('img').src = "course1.jpg";
-            const buttons = document.getElementsByTagName("button");
-            const accept = buttons[0];
-            const decline = buttons[1];
-            courseElement.removeChild(accept);
-            courseElement.removeChild(decline);
             if (action === 'accept') {
                 const rows = enrolledTable.getElementsByTagName('tr');
                 let lastRow = rows[rows.length - 1];
@@ -35,6 +30,14 @@
                 newTd.appendChild(link)
             } else if (action === 'decline') {
                 courseElement.parentNode.parentNode.removeChild(courseElement.parentNode);
+            }
+            const acceptButtons = courseElement.getElementsByClassName("accept");
+            const declineButtons = courseElement.getElementsByClassName("decline")
+            for (let button of acceptButtons) {
+                button.remove();
+            }
+            for (let button of declineButtons) {
+                button.remove();
             }
         }
 
