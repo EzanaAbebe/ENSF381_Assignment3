@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - LMS</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <img src="logo.jpg" alt="LMS Logo" style="width: 100px; height: 100px;">
+        <h1>LMS - Learning Management System</h1>
+    </header>
+    <div>
+        <nav>
+            <a href="index.html">Homepage</a>
+        </nav>
+    </div>
+    
+    <main class="login">
+        <h2>Sign Up</h2>
+
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required><br>
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required><br><br>
+            
+            <button class="signup" type="submit">Sign Up</button>
+        </form> 
+
+        <br><br>  
+        <div id="messageBox" class="message-box" style="border: 1px solid white; padding:10px; display:none;"></div>
+        <br>
+        <a href="login.html">Already have an account? Login here</a>
+            
+    </main>
+    <footer>
+        <p>&copy; 2025 LMS. All rights reserved.</p>
+    </footer>   
+
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            validateForm();
+        });
+
+        function validateForm() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            let email = document.getElementById("email").value;
+            let errors = [];
+            let messageBox = document.getElementById("messageBox");
+            messageBox.style.display = "none";
+            messageBox.innerHTML = "";
+
+            if (username.length < 3 || username.length > 20) {
+                errors.push("Invalid username (Username must be between 3 and 20 characters)");
+            }
+            else if (!isAlpha(username.charAt(0))) {
+                errors.push("Invalid username (Username must start with a letter)");
+            }
+            else if (containsSpaceOrSpecialChars(username)) {
+                errors.push("Invalid username (Only letters, numbers, hyphens, and underscores allowed)");
+            }
+
+            if (password.length < 8) {
+                errors.push("Invalid password (Must be at least 8 characters)");
+            }
+            else if (!containsUppercase(password) || !containsLowercase(password) || !containsNumber(password) || !containsSpecialChar(password)) {
+                errors.push("Invalid password (Must have uppercase, lowercase, number, special character)");
+            }
+            else if (password.includes(" ")) {
+                errors.push("Invalid password (Cannot contain spaces)");
+            }
+
+            if (confirmPassword !== password) {
+                errors.push("Password and confirm password do not match");
+            }
+
+            if (!isValidEmail(email)) {
+                errors.push("Invalid email address");
+            }
+
+            if (errors.length > 0) {
+                messageBox.style.display = "block";
+                messageBox.innerHTML = errors.join("<br>");
+                messageBox.style.borderColor = 'black';
+                messageBox.style.lineHeight = "1.8";
+            } else {
+                messageBox.style.display = "block";
+                messageBox.style.borderColor = 'black';
+                messageBox.style.lineHeight = "1.8";
+                messageBox.innerHTML = "Signup successful! Redirecting to login...";
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        }
+
+        function isAlpha(char) {
+            return (char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z');
+        }
+
+        function containsSpaceOrSpecialChars(str) {
+            let allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+            for (let i = 0; i < str.length; i++) {
+                if (!allowedChars.includes(str.charAt(i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function containsUppercase(str) {
+            for (let i = 0; i < str.length; i++) {
+                if (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function containsLowercase(str) {
+            for (let i = 0; i < str.length; i++) {
+                if (str.charAt(i) >= 'a' && str.charAt(i) <= 'z') {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function containsNumber(str) {
+            for (let i = 0; i < str.length; i++) {
+                if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function containsSpecialChar(str) {
+            let specialChars = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
+            for (let i = 0; i < str.length; i++) {
+                if (specialChars.includes(str.charAt(i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function isValidEmail(email) {
+            if (email.includes(" ") || !email.includes("@")) {
+                return false;
+            }
+            let atIndex = email.indexOf("@");
+            let dotIndex = email.indexOf(".", atIndex);
+            return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < email.length - 1;
+        }
+    </script>
+
+</body>
+</html>
